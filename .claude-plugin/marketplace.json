@@ -10,12 +10,12 @@
     {
       "name": "firefly-meadow",
       "source": "./firefly-meadow",
-      "description": "A dusky meadow behind the desktop app, with fireflies that multiply as the context window fills, and a matching dusk color theme."
+      "description": "A dusky meadow behind the desktop app, with fireflies that multiply as the context window fills, and a matching dusk color theme. /firefly-meadow turns it on and off."
     },
     {
       "name": "winter-night",
       "source": "./winter-night",
-      "description": "A winter night behind the app: snow that falls harder as the context window fills, a storm as auto-compaction nears, and a matching color theme."
+      "description": "A winter night behind the app: snow that falls harder as the context window fills, a storm as auto-compaction nears, and a matching color theme. /winter-night turns it on and off."
     }
   ]
 }

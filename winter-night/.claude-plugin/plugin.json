@@ -1,5 +1,6 @@
 {
   "name": "winter-night",
-  "version": "0.1.0",
-  "description": "A winter night behind the app: clouds, a few stars and snow that falls harder as the context window fills, a storm as auto-compaction nears, and a matching color theme."
+  "version": "0.2.0",
+  "description": "A winter night behind the app: clouds, a few stars and snow that falls harder as the context window fills, a storm as auto-compaction nears, and a matching color theme. /winter-night turns it on and off.",
+  "types": "./types/index.d.ts"
 }

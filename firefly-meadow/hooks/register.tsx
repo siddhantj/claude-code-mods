@@ -1,7 +1,13 @@
+import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { makeColors } from './make-colors.js'
 import { meadow } from './meadow'
+
+const NAME = 'firefly-meadow'
+
+// Off until the person asks. Kept for the session, so a reload leaves it.
+const isOn = atom({ plugin: 'firefly-meadow', key: 'isOn' } as const, false)
 
 // Twelve at an empty window, eighty-seven at a full one, three more for every
 // 4% of context. Steps, not a slope: each change sets the whole theme again.
@@ -50,6 +56,10 @@ async function show($: EngineInterface, count: number): Promise<void> {
 }
 
 async function sync($: EngineInterface): Promise<void> {
+  if (!(await read($, isOn))) {
+    return
+  }
+
   const { context } = await $.session.usage()
   const wanted = countFor(context.percent ?? 0)
 
@@ -65,11 +75,34 @@ export const register: Register = on => {
     if (unpainted !== undefined) {
       $.ui.toast(unpainted)
     }
+    await $.command.register({ name: NAME, description: 'Turn the firefly meadow theme on or off' })
     shown = -1
     await sync($).catch(() => show($, FEWEST))
 
     return next(e)
   })
+
+  on('command.run', { command: NAME }, async $ => {
+    const next = !(await read($, isOn))
+
+    await update($, isOn, () => next)
+    shown = -1
+
+    if (next) {
+      await sync($).catch(() => show($, FEWEST))
+
+      return {
+        text: 'Firefly meadow: on. Fireflies multiply as the context window fills. Run /firefly-meadow again to turn it off.',
+        isTextDisplayOnly: true,
+      }
+    }
+
+    // The person asked for it gone: this clears the theme, whichever mod set it.
+    await $.theme.clear()
+    $.ui.status(undefined)
+
+    return { text: 'Firefly meadow: off.', isTextDisplayOnly: true }
+  }).catch(() => ({ text: 'Firefly meadow could not change.', isTextDisplayOnly: true }))
 
   on('turn.complete', async ($, e, next) => {
     const result = await next(e)

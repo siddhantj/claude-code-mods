@@ -1,5 +1,6 @@
 {
   "name": "firefly-meadow",
-  "version": "0.1.0",
-  "description": "A dusky meadow behind the desktop app, with fireflies that multiply as the context window fills, and a matching dusk color theme."
+  "version": "0.2.0",
+  "description": "A dusky meadow behind the desktop app, with fireflies that multiply as the context window fills, and a matching dusk color theme. /firefly-meadow turns it on and off.",
+  "types": "./types/index.d.ts"
 }

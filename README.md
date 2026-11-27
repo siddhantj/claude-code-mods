@@ -5,10 +5,12 @@ Mods I've made for Claude Code. Each one lives in its own folder and installs on
 | Mod | What it does | Where it shows |
 | --- | --- | --- |
 | [`thor-thanos`](thor-thanos/) | A 10-second pixel-art loop of Thor (Stormbreaker) fighting Thanos (Infinity Gauntlet), drawn dimmed along the bottom of the window, behind the chat. Off until you run `/thor-thanos`; run it again to stop. | Terminal, fullscreen layout |
-| [`firefly-meadow`](firefly-meadow/) | A dusky meadow behind the app with a matching dusk color theme. Fireflies multiply as the context window fills: 12 when empty, 87 when full. | Desktop app |
-| [`winter-night`](winter-night/) | A winter night with a matching color theme. Snow falls harder as the context window fills, and turns into a storm as auto-compaction nears. The status line says how far you are from auto-compact. | Desktop app (still backdrop) and terminal (falling snow, fullscreen layout) |
+| [`firefly-meadow`](firefly-meadow/) | A dusky meadow behind the app with a matching dusk color theme. Fireflies multiply as the context window fills: 12 when empty, 87 when full. Off until you run `/firefly-meadow`; run it again to turn it off. | Desktop app |
+| [`winter-night`](winter-night/) | A winter night with a matching color theme. Snow falls harder as the context window fills, and turns into a storm as auto-compaction nears. The status line says how far you are from auto-compact. Off until you run `/winter-night`; run it again to turn it off. | Desktop app (still backdrop) and terminal (falling snow, fullscreen layout) |
 
-`firefly-meadow` and `winter-night` both set the color theme, so turn on one of them at a time.
+Every mod is off after install and does nothing until you run its command.
+
+`firefly-meadow` and `winter-night` both set the color theme, so turn on one of them at a time. Turning either off clears the theme, whichever of the two set it.
 
 ## Install
 
