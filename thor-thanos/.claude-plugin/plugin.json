@@ -1,0 +1,6 @@
+{
+  "name": "thor-thanos",
+  "version": "0.1.0",
+  "description": "A 10-second pixel-art loop of Thor (Stormbreaker) fighting Thanos (Infinity Gauntlet), drawn behind the chat along the bottom of the terminal. /thor-thanos turns it on and off.",
+  "types": "./types/index.d.ts"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "claude-code-mods",
+  "owner": { "name": "siddhantj" },
+  "plugins": [
+    {
+      "name": "thor-thanos",
+      "source": "./thor-thanos",
+      "description": "A 10-second pixel-art fight loop along the bottom of the terminal, behind the chat. /thor-thanos turns it on and off."
+    },
+    {
+      "name": "firefly-meadow",
+      "source": "./firefly-meadow",
+      "description": "A dusky meadow behind the desktop app, with fireflies that multiply as the context window fills, and a matching dusk color theme."
+    },
+    {
+      "name": "winter-night",
+      "source": "./winter-night",
+      "description": "A winter night behind the app: snow that falls harder as the context window fills, a storm as auto-compaction nears, and a matching color theme."
+    }
+  ]
+}
