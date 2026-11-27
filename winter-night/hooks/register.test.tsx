@@ -17,6 +17,14 @@ const closed = (list: { d: string }[]): number => list.reduce((sum, p) => sum + 
 const flakes = (look: ThemeSetArgs | undefined): number =>
   closed(paths(look).filter(p => p.color.startsWith(FLAKE)))
 
+// The command as the person's Enter raises it.
+const TYPED = {
+  command: 'winter-night',
+  args: '',
+  origin: { kind: 'composer' },
+  presentation: { isFullscreen: true, columns: 120 },
+} as const
+
 test('the picture stays inside what a ground takes, at every level', async () => {
   for (let level = 0; level <= LEVELS; level++) {
     const { vector } = snowfall(level)
@@ -43,6 +51,13 @@ test('more context means more snow, and a storm near auto-compaction', async ($,
 
     return { value: { isDrawn: true, requestId: 'backdrop' } } as never
   })
+  let clears = 0
+  on('command.register', () => ({ value: { command: 'winter-night' } }))
+  on('theme.clear', () => {
+    clears++
+
+    return { value: { isDrawn: false, requestId: 'backdrop' } } as never
+  })
   on('ui.status', (_, e) => {
     statuses.push(JSON.stringify(e))
 
@@ -53,6 +68,12 @@ test('more context means more snow, and a storm near auto-compaction', async ($,
   const settle = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 20))
 
   await $.session.start({ cwd: '/', surface: 'desktop', isInteractive: true })
+  // Off until the person asks: nothing is set at the start.
+  expect(looks.length).toBe(0)
+
+  const turnedOn = await $.command.run(TYPED)
+
+  expect(turnedOn.text).toMatch(/on/)
   expect(flakes(looks.at(-1))).toBe(flakeCount(0))
   expect(looks.at(-1)?.colors).toBeDefined()
 
@@ -73,6 +94,16 @@ test('more context means more snow, and a storm near auto-compaction', async ($,
   await settle()
   expect(flakes(looks.at(-1))).toBe(flakeCount(19))
   expect(statuses.at(-1)?.includes('snowstorm')).toBe(true)
+
+  // Off again: the theme is cleared and later tool calls set nothing.
+  const turnedOff = await $.command.run(TYPED)
+  const count = looks.length
+
+  expect(turnedOff.text).toMatch(/off/)
+  expect(clears).toBe(1)
+  await $.tool.call({ tool: 'Bash', command: 'ls' })
+  await settle()
+  expect(looks.length).toBe(count)
 })
 
 test('the terminal gets falling snow, thicker in a storm', async () => {
